@@ -54,3 +54,48 @@ const Home = () => {
 };
 
 export default Home;*/
+/*import React from "react";
+
+//include images into your bundle
+import rigoImage from "../../img/rigo-baby.jpg";
+
+//create your first component
+const Home = () => {
+	const frutas = ["manzana","pera"]
+
+
+	// const newArray = frutas.map((item)=>item+"s")
+
+	function deleteTask(id) {
+		console.log("funciona"+id);
+		//CUANDO TENGA EL ELEMENTO A ELIMINAR, APLICAR EL FILTER
+
+		//["manzana","pera"]
+         //.      "manzana".         1          0  
+
+ //  (parametro1(obligatorio),parametro2(opcional),parametro3(opcional))
+
+                                                
+		array.filter((_,index,array)=>index !== id)
+	}
+
+
+	return (
+		<div className="text-center">
+            
+
+			<h1 className="text-center mt-5">TODO LIST</h1>
+			
+			<ul>
+
+				                                                         onclick="nombreFuncion()" NO SE PUEDE HACER
+																	onClick={nombreFuncion}
+																		 deleteTask()
+				{frutas.map((item,index)=><li key={index}>{item+"s"} <span onClick={() =>deleteTask(index)}>X</span> </li>)}
+			</ul>
+			
+		</div>
+	);
+};
+
+export default Home;*/

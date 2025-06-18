@@ -9,31 +9,49 @@ const Home = () => {
 	const [tarea, setTarea] = useState("")
 	const [listaTareas, setListaTareas] = useState([])
 	console.log(listaTareas)
+
+
 	function updateList(event) {
-		event.preventDefault();
+
 
 
 		if (event.key === "Enter") {
 			setListaTareas(listaTareas.concat(tarea));
+			setTarea("")
 		}
 	}
 
-	
-	const arrayDetareas = listaTareas.map((item)=><li>{item}</li>)
-	
+	function deleteTask(id) {
+
+		setListaTareas(listaTareas.filter((_, index) => index !==id))
+	}
+
+	const arrayDetareas = listaTareas.map((item, index, _) => <li className="m-2 d-flex justify-content-between">{item} <span className="text-danger " onClick={() => deleteTask(index)}>X</span></li>)
+
 
 	return (
 		<div className="text-center">
 
 
 			<h1 className="text-center mt-5 text-secondary">Todos</h1>
-			
 
-				<input type="text" className="form-control" value={tarea} onChange={(event) => setTarea(event.target.value)} onKeyDown={updateList} />
-		
-			<ul>
-				{arrayDetareas}
-			</ul>
+			<div className="d-flex justify-content-center">
+
+				<input type="text" className="form-control w-25" value={tarea} onChange={(event) => setTarea(event.target.value)} onKeyDown={updateList} />
+
+			</div>
+			<div className="d-flex justify-content-center text-start mt-3">
+
+				<ul className="w-25">
+					{arrayDetareas}
+				</ul>
+
+				
+			</div>
+			<p>
+					{listaTareas.length} tasks to do
+
+				</p>
 		</div>
 	);
 };
