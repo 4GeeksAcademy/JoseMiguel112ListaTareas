@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
+
+	function getTodos() {
+		fetch('https://playground.4geeks.com/todo/users/jmb', { method: "GET" })// buscar informacion en la url
+			.then((response) => {
+				return response.json()
+			}) // si llega una respuesta prometo que la convierto en un formato utilizable JSON
+			.then((data) => setListaTareas(data.todos))
+			//.then((data)=>setCharacters(data.results)) // Prometo que si el formato a json sale bien lo guardo en un espacio
+			.catch((error) => console.log(error)) // si algo sale, lo aviso
+	}
+
+	
 
 	const [tarea, setTarea] = useState("")
 	const [listaTareas, setListaTareas] = useState([])
@@ -23,11 +35,16 @@ const Home = () => {
 
 	function deleteTask(id) {
 
-		setListaTareas(listaTareas.filter((_, index) => index !==id))
+		setListaTareas(listaTareas.filter((_, index) => index !== id))
 	}
 
-	const arrayDetareas = listaTareas.map((item, index, _) => <li className="m-2 d-flex justify-content-between">{item} <span className="text-danger " onClick={() => deleteTask(index)}>X</span></li>)
+	useEffect(() => {
+		//codigo que queremos que se ejecute cuando se cargue el componente
+		getTodos()
+	}, [])
 
+	const arrayDetareas = listaTareas.map((item, index, _) => <li className="m-2 d-flex justify-content-between">{item.label} <span className="text-danger " onClick={() => deleteTask(index)}>X</span></li>)
+	console.log(arrayDetareas)
 
 	return (
 		<div className="text-center">
@@ -46,12 +63,12 @@ const Home = () => {
 					{arrayDetareas}
 				</ul>
 
-				
+
 			</div>
 			<p>
-					{listaTareas.length} tasks to do
+				{listaTareas.length} tasks to do
 
-				</p>
+			</p>
 		</div>
 	);
 };
