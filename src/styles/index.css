@@ -12,4 +12,35 @@
 	useEffect(()=>{
 		//codigo que queremos que se ejecute cuando se cargue el componente
 		getCharacters()
-	},[])*/
+	},[])
+
+
+
+
+
+
+	function createTask() {
+		let task = "Pasear al perro"
+
+
+		fetch('https://playground.4geeks.com/todo/todos/rosinni',{
+			method: "POST",
+			body: JSON.stringify({
+				"label": task,
+				"is_done": false
+			}),
+			headers:{
+				"Content-Type": "application/json"
+			}
+		})
+		.then((response)=>{
+			console.log(response);
+			if (response.status === 201) {
+				getTasks()
+			}
+			
+			return response.json()})
+		.then((data)=>console.log(data))
+		.catch((error)=>console.log(error))
+
+	}
