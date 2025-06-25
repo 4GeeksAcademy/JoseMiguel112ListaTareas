@@ -1,35 +1,32 @@
 import React, { useState, useEffect } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
 const Home = () => {
 
 	function createUser(){
-		fetch('https://playground.4geeks.com/todo/users/jmb', { method: "POST" })// buscar informacion en la url
+		fetch('https://playground.4geeks.com/todo/users/jmb', { method: "POST" })
 			.then((response) => {
 				if(response.status===201){
 					getTodos();
 				}
 				return response.json()
-			}) // si llega una respuesta prometo que la convierto en un formato utilizable JSON
+			})
 			.then((data) => (data.todos))
-			//.then((data)=>setCharacters(data.results)) // Prometo que si el formato a json sale bien lo guardo en un espacio
-			.catch((error) => console.log(error)) // si algo sale, lo aviso
+			
+			.catch((error) => console.log(error))
 	}
 
 	function getTodos() {
-		fetch('https://playground.4geeks.com/todo/users/jmb', { method: "GET" })// buscar informacion en la url
+		fetch('https://playground.4geeks.com/todo/users/jmb', { method: "GET" })
 			.then((response) => {
 				if(response.status === 404){
 					createUser();
 				}
 				else return response.json()
-			}) // si llega una respuesta prometo que la convierto en un formato utilizable JSON
+			}) 
 			.then((data) => setListaTareas(data.todos))
-			//.then((data)=>setCharacters(data.results)) // Prometo que si el formato a json sale bien lo guardo en un espacio
-			.catch((error) => console.log(error)) // si algo sale, lo aviso
+			
+			.catch((error) => console.log(error))
 	}
 
 	function createTask(event) {
@@ -67,17 +64,6 @@ const Home = () => {
 	const [listaTareas, setListaTareas] = useState([])
 	
 
-
-	function updateList(event) {
-
-
-
-		if (event.key === "Enter") {
-			setListaTareas(listaTareas.concat(tarea));
-			setTarea("")
-		}
-	}
-
 	function deleteTask(id) {
 		console.log(id)
 
@@ -100,7 +86,7 @@ const Home = () => {
 	const arrayDetareas = listaTareas.map((item, index, _) => <li className="m-2 d-flex justify-content-between">{item.label} <span className="text-danger " onClick={() => deleteTask(item.id)}>X</span></li>)
 	
 	useEffect(() => {
-		//codigo que queremos que se ejecute cuando se cargue el componente
+		
 		getTodos()
 		
 	}, [])
